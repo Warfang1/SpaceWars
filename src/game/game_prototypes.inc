@@ -41,7 +41,7 @@ void resetStars();
 void resetGame();
 void startNextLevel();
 void startEndlessMode();
-void chooseVictoryAction(int moveY);
+void chooseVictoryAction(int moveX);
 void confirmVictoryAction();
 void drawPlayerEngineFlame(int nozzleX, int centerY, int frame);
 void drawPlayer(int x, int y);

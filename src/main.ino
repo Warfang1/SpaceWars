@@ -76,8 +76,8 @@ void loop() {
             return;
         }
         if (!endlessMode && level >= MAX_LEVELS) {
-            int axisX = joystickDirection(readJoystickAxis(JOYSTICK_X_PIN), joystickCenterX, INVERT_JOYSTICK_X);
-            chooseVictoryAction(-axisX); // Same rotated up/down mapping as gameplay.
+            int axisY = joystickDirection(readJoystickAxis(JOYSTICK_Y_PIN), joystickCenterY, INVERT_JOYSTICK_Y);
+            chooseVictoryAction(axisY); // Rotated screen-horizontal input: left/right selection.
         }
         drawVictoryScreen();
         if (victoryNeedsRelease) {

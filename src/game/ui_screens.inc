@@ -105,7 +105,7 @@ void drawVictoryScreen() {
         drawUiButton(6, 41, 56, "ENDLESS", victoryEndlessSelected);
         drawUiButton(66, 41, 56, "RESTART", !victoryEndlessSelected);
         oled.setFont(u8g2_font_4x6_tr);
-        drawUiCentered("UP/DOWN + CLICK", 61);
+        drawUiCentered("LEFT/RIGHT + CLICK", 61);
     } else {
         oled.setFont(u8g2_font_5x7_tr);
         drawUiCentered("VICTORY!", 14);

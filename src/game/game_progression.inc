@@ -139,9 +139,9 @@ void startEndlessMode() {
     startNextLevel();
 }
 
-void chooseVictoryAction(int moveY) {
-    if (moveY < 0) victoryEndlessSelected = true;
-    if (moveY > 0) victoryEndlessSelected = false;
+void chooseVictoryAction(int moveX) {
+    if (moveX < 0) victoryEndlessSelected = true;
+    if (moveX > 0) victoryEndlessSelected = false;
 }
 
 void confirmVictoryAction() {
