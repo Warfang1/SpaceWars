@@ -94,6 +94,7 @@ void resetGame() {
     playerExplosionUntil = 0;
     victoryExplosionUntil = 0;
     dashUntil = 0;
+    dashInvulnerableUntil = 0;
     dashTrailUntil = 0;
     dodgeCooldownUntil = 0;
     gameOver = false;
@@ -128,6 +129,7 @@ void startNextLevel() {
     playerExplosionUntil = 0;
     victoryExplosionUntil = 0;
     dashUntil = 0;
+    dashInvulnerableUntil = 0;
     dashTrailUntil = 0;
     levelVictory = false;
     victoryNeedsRelease = false;

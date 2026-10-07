@@ -117,7 +117,8 @@ udløber. Flere timere kan vises samtidig; et nyt pickup af samme type fornyer v
 - Skibet skyder automatisk; du skal ikke holde en knap nede.
 - Under en bane: klik på joysticket, mens du holder en retning, for et hurtigt dash.
   Det følger retningen, varer cirka 320 ms, har 3 sekunders cooldown og giver ikke
-  usårlighed. Tre fartstreger med en ekstra på hver side viser, når det aktiveres.
+  fuld usårlighed: du får 160 ms i-frames i starten. Tre fartstreger med en ekstra
+  på hver side viser, når det aktiveres.
 - I menuer: tryk joysticket ned (`SW`) for at starte spillet, gå videre eller genstarte.
 - Lad joysticket stå i midten, når du tænder eller genstarter ESP32'en.
   Spillet kalibrerer joystickets midterposition ved opstart.

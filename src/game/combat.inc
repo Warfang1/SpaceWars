@@ -77,7 +77,8 @@ void addAimedEnemyBullet(int sourceX, int startY, int targetY) {
 
 void damagePlayer(unsigned long now) {
     if (gameOver || levelVictory || timerActive(shieldUntil, now) ||
-        timerActive(invulnerableUntil, now) || timerActive(playerExplosionUntil, now)) return;
+        timerActive(invulnerableUntil, now) || timerActive(dashInvulnerableUntil, now) ||
+        timerActive(playerExplosionUntil, now)) return;
     lives--;
     comboKills = 0;
     invulnerableUntil = now + INVULNERABLE_DURATION;

@@ -34,6 +34,7 @@ void activateDodgeDash(unsigned long now) {
     dashDirectionX = moveX;
     dashDirectionY = moveY;
     dashUntil = now + DASH_DURATION_MS;
+    dashInvulnerableUntil = now + DASH_INVULNERABILITY_MS;
     dashTrailUntil = now + DASH_TRAIL_DURATION_MS;
     dashTrailX = playerX;
     dashTrailY = playerY;
