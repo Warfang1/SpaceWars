@@ -122,7 +122,7 @@ udløber. Flere timere kan vises samtidig; et nyt pickup af samme type fornyer v
 Styringen er roteret **90 grader mod venstre** i koden, så den passer til den
 nuværende montering. Hvis du vender joystickmodulet anderledes efter genopbygning,
 kan retningerne derfor føles forkerte. Behold samme orientering, eller tilpas
-`updatePlayer()` i `src/main.ino`.
+`updatePlayer()` i `src/game/game_updates.inc`.
 
 ## Hardware
 
@@ -197,7 +197,8 @@ ikke deler den samme forbundne række ved en fejl.
 
 ## Byg og upload med PlatformIO
 
-1. Åbn projektmappen, som indeholder `platformio.ini`, i VS Code.
+1. Download repoet som ZIP fra GitHub, pak det ud, og åbn projektets rodmappe i
+   VS Code — det er mappen, der indeholder `platformio.ini` (ikke `src` eller `include`).
 2. Tilslut ESP32'en via USB, og lad joysticket stå i midten.
 3. Klik **Build** for at kompilere. PlatformIO installerer U8g2 og Tone32 via `lib_deps`.
 4. Klik **Upload** for at overføre spillet til ESP32'en.
@@ -208,8 +209,8 @@ Hvis upload sidder fast ved `Connecting...`, kan det være nødvendigt at holde
 ESP32'ens **BOOT**-knap nede, mens forbindelsen oprettes.
 
 Den kode, der bliver bygget, ligger i **`src/main.ino`**. Den oprindelige
-`ttgoGameConsole.ino` og de gamle billed-headere i projektroden er ikke den
-aktive version af spillet.
+`ttgoGameConsole.ino` og header-billederne i `include/pixel_art/` er ikke nødvendige
+for OLED-versionen. Dens aktive sprite-grafik ligger i `src/game/`.
 
 ## Hvis noget ikke virker efter genopbygning
 
