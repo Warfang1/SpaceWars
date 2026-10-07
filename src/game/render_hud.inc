@@ -111,7 +111,7 @@ void drawBossCombat(unsigned long now) {
     if (!enemyIsBoss || !enemies[0].active || bossIntroActive(now)) return;
     const Enemy &boss = enemies[0];
     oled.setClipWindow(0, HUD_HEIGHT + 1, SCREEN_W, SCREEN_H);
-    if (level == 3) {
+    if (level == 3 || level == 5) {
         bool shieldUp = bossShieldActive(now);
         bool openingSoon = bossShieldOpeningSoon(now);
         if (shieldUp && (!openingSoon || (now / 90UL) % 2 == 0)) {
@@ -125,10 +125,8 @@ void drawBossCombat(unsigned long now) {
         }
     }
     if (bossCharging) {
-        if ((now / 120UL) % 2 == 0) {
-            oled.drawFrame(boss.x - 1, boss.y - 1, enemyWidth() + 2, enemyHeight() + 2);
-        }
         if (bossAttackKind == BOSS_ATTACK_LASER) {
+            // The broken beam segments already telegraph a laser; no flashing boss frame needed.
             for (int x = 0; x < boss.x; x += 6) {
                 if ((now / 120UL) % 2 == 0) {
                     int endX = min(x + 2, boss.x - 1);
@@ -136,19 +134,17 @@ void drawBossCombat(unsigned long now) {
                 }
             }
         } else if (bossAttackKind == BOSS_ATTACK_MISSILES) {
-            if ((now / 150UL) % 2 == 0) {
-                int left = playerX - 2;
-                int right = playerX + PLAYER_W + 1;
-                int top = playerY - 2;
-                int bottom = playerY + PLAYER_H + 1;
-                drawPlayfieldLine(left, top, left + 3, top);
-                drawPlayfieldLine(left, top, left, top + 3);
-                drawPlayfieldLine(right - 3, top, right, top);
-                drawPlayfieldLine(right, top, right, top + 3);
-                drawPlayfieldLine(left, bottom - 3, left, bottom);
-                drawPlayfieldLine(left, bottom, left + 3, bottom);
-                drawPlayfieldLine(right, bottom - 3, right, bottom);
-                drawPlayfieldLine(right - 3, bottom, right, bottom);
+            if ((now / 120UL) % 2 == 0) {
+                const char *warning = "MISSILES!";
+                oled.setFont(u8g2_font_4x6_tr);
+                const int warningWidth = oled.getStrWidth(warning);
+                const int warningX = constrain(playerX + PLAYER_W / 2 - warningWidth / 2,
+                                                1, SCREEN_W - warningWidth - 1);
+                int warningY = playerY - 3;
+                if (warningY < HUD_HEIGHT + 7) warningY = playerY + PLAYER_H + 7;
+                warningY = constrain(warningY, HUD_HEIGHT + 7, SCREEN_H - 8);
+                oled.drawStr(warningX, warningY, warning);
+                oled.setFont(u8g2_font_5x7_tr);
             }
         }
     }

@@ -54,16 +54,30 @@ void resetBossCombat() {
     bossEnraged = false;
 }
 
+unsigned long bossShieldClosedDuration() {
+    return level == 5 ? OMEGA_PRIME_SHIELD_CLOSED_MS : BOSS_SHIELD_CLOSED_MS;
+}
+
+unsigned long bossShieldOpenDuration() {
+    return level == 5 ? OMEGA_PRIME_SHIELD_OPEN_MS : BOSS_SHIELD_OPEN_MS;
+}
+
+unsigned long bossShieldCycleDuration() {
+    return bossShieldClosedDuration() + bossShieldOpenDuration();
+}
+
 bool bossShieldActive(unsigned long now) {
-    return enemyIsBoss && level == 3 && enemies[0].active &&
-           (bossIntroActive(now) ||
-            (now - bossFightStartedAt) % BOSS_SHIELD_CYCLE_MS < BOSS_SHIELD_CLOSED_MS);
+    if (!enemyIsBoss || (level != 3 && level != 5) || !enemies[0].active) return false;
+    if (bossIntroActive(now)) return true;
+    const unsigned long closedDuration = bossShieldClosedDuration();
+    return (now - bossFightStartedAt) % bossShieldCycleDuration() < closedDuration;
 }
 
 bool bossShieldOpeningSoon(unsigned long now) {
     if (!bossShieldActive(now) || bossIntroActive(now)) return false;
-    unsigned long phase = (now - bossFightStartedAt) % BOSS_SHIELD_CYCLE_MS;
-    return phase >= BOSS_SHIELD_CLOSED_MS - BOSS_SHIELD_WARNING_MS;
+    const unsigned long closedDuration = bossShieldClosedDuration();
+    const unsigned long phase = (now - bossFightStartedAt) % bossShieldCycleDuration();
+    return phase >= closedDuration - BOSS_SHIELD_WARNING_MS;
 }
 
 int bossBeamYAt(int x) {

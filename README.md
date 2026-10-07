@@ -90,10 +90,10 @@ spawn-rytmen bliver uhåndterlige; der er ikke en normal afsluttende endless-bos
 | Bane | Små fjender | Boss | Bossens liv | Særlige angreb |
 | --- | ---: | --- | ---: | --- |
 | 1 | 4 | Dark Comet | 24 | Vifte af skud |
-| 2 | 6 | Void Stalker | 36 | Varmesøgende missiler, som kan skydes ned |
+| 2 | 6 | Void Stalker | 36 | Varmesøgende missiler med en kort advarsel; kan skydes ned |
 | 3 | 8 | Nebula Queen | 36 | Rundt skjold; ram bossen, når skjoldet er åbent |
 | 4 | 10 | Star Wraith | 44 | Laser med varsling, så du kan nå at undvige |
-| 5 | 12 | Omega Prime | 54 | Vifteskud, missiler og laser; hurtigere angreb under halvt liv |
+| 5 | 12 | Omega Prime | 54 | Skjold: 3 sekunder lukket, 6 sekunder åbent; vifteskud, missiler med advarsel og laser |
 
 ### Powerups
 
@@ -115,7 +115,10 @@ udløber. Flere timere kan vises samtidig; et nyt pickup af samme type fornyer v
 
 - Bevæg joysticket for at flyve op, ned, til venstre og til højre.
 - Skibet skyder automatisk; du skal ikke holde en knap nede.
-- Tryk joysticket ned (`SW`) for at starte spillet, gå til næste bane eller genstarte.
+- Under en bane: klik på joysticket, mens du holder en retning, for et hurtigt dash.
+  Det følger retningen, varer cirka 320 ms, har 3 sekunders cooldown og giver ikke
+  usårlighed. Tre fartstreger med en ekstra på hver side viser, når det aktiveres.
+- I menuer: tryk joysticket ned (`SW`) for at starte spillet, gå videre eller genstarte.
 - Lad joysticket stå i midten, når du tænder eller genstarter ESP32'en.
   Spillet kalibrerer joystickets midterposition ved opstart.
 

@@ -87,6 +87,8 @@ void maybeSpawnPowerUp(const Enemy &enemy);
 bool damageEnemy(int enemyIndex);
 void collectPowerUp(unsigned long now);
 void updateStars();
+void readPlayerMovementDirection(int &moveX, int &moveY);
+void activateDodgeDash(unsigned long now);
 void updatePlayer();
 void updateEnemies();
 void updatePowerUp(unsigned long now);

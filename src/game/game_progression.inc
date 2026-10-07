@@ -93,6 +93,9 @@ void resetGame() {
     lastShot = millis();
     playerExplosionUntil = 0;
     victoryExplosionUntil = 0;
+    dashUntil = 0;
+    dashTrailUntil = 0;
+    dodgeCooldownUntil = 0;
     gameOver = false;
     levelVictory = false;
     victoryNeedsRelease = false;
@@ -124,6 +127,8 @@ void startNextLevel() {
     lastShot = millis();
     playerExplosionUntil = 0;
     victoryExplosionUntil = 0;
+    dashUntil = 0;
+    dashTrailUntil = 0;
     levelVictory = false;
     victoryNeedsRelease = false;
     invulnerableUntil = 0;

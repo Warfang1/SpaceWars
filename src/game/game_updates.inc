@@ -12,20 +12,58 @@ void updateStars() {
     }
 }
 
-void updatePlayer() {
+void readPlayerMovementDirection(int &moveX, int &moveY) {
     int axisX = joystickDirection(readJoystickAxis(JOYSTICK_X_PIN),
                                   joystickCenterX, INVERT_JOYSTICK_X);
     int axisY = joystickDirection(readJoystickAxis(JOYSTICK_Y_PIN),
                                   joystickCenterY, INVERT_JOYSTICK_Y);
     // Rotate controls 90 degrees counterclockwise in screen coordinates (Y down).
-    int moveX = axisY;
-    int moveY = -axisX;
+    moveX = axisY;
+    moveY = -axisX;
+}
+
+void activateDodgeDash(unsigned long now) {
+    if (gameOver || levelVictory || bossIntroActive(now) ||
+        timerActive(playerExplosionUntil, now) || timerActive(dodgeCooldownUntil, now)) return;
+
+    int moveX = 0;
+    int moveY = 0;
+    readPlayerMovementDirection(moveX, moveY);
+    if (moveX == 0 && moveY == 0) return;
+
+    dashDirectionX = moveX;
+    dashDirectionY = moveY;
+    dashUntil = now + DASH_DURATION_MS;
+    dashTrailUntil = now + DASH_TRAIL_DURATION_MS;
+    dashTrailX = playerX;
+    dashTrailY = playerY;
+    playerMoveRemainder = 0;
+    dodgeCooldownUntil = now + DODGE_COOLDOWN_MS;
+}
+
+void updatePlayer() {
+    const unsigned long now = millis();
+    if (timerActive(dashUntil, now)) {
+        const int step = dashDirectionX != 0 && dashDirectionY != 0
+                             ? DASH_DIAGONAL_STEP_PIXELS
+                             : DASH_STEP_PIXELS;
+        playerX = constrain(playerX + dashDirectionX * step, 2, 48);
+        playerY = constrain(playerY + dashDirectionY * step,
+                            HUD_HEIGHT + 3, SCREEN_H - 10);
+        dashTrailX = playerX;
+        dashTrailY = playerY;
+        return;
+    }
+
+    int moveX = 0;
+    int moveY = 0;
+    readPlayerMovementDirection(moveX, moveY);
     if (moveX == 0 && moveY == 0) {
         playerMoveRemainder = 0;
         return;
     }
     // Six pixels per five movement ticks = exactly 20% more speed on each axis.
-    playerMoveRemainder += 6;
+    playerMoveRemainder += PLAYER_MOVE_RATE;
     int steps = playerMoveRemainder / 5;
     playerMoveRemainder %= 5;
     playerX = constrain(playerX + moveX * steps, 2, 48);

@@ -41,6 +41,37 @@ void drawPlayer(int x, int y) {
     // Offset the two engine animations so they do not flicker in unison.
     drawPlayerEngineFlame(x - 1, y + 1, frame);
     drawPlayerEngineFlame(x - 1, y + 7, (frame + 2) % 4);
+    if (timerActive(dashTrailUntil, now)) {
+        const unsigned long remaining = dashTrailUntil - now;
+        const bool dashing = timerActive(dashUntil, now);
+        const int trailCount = remaining > 60 ? 3 : 1;
+        const int flicker = (now / 20UL) % 2;
+        const int centerX = dashTrailX + PLAYER_W / 2;
+        const int centerY = dashTrailY + PLAYER_H / 2;
+        for (int streak = 0; streak < trailCount; streak++) {
+            const int distance = PLAYER_W / 2 + 2 + streak * 4 + flicker;
+            const int streakX = centerX - dashDirectionX * distance;
+            const int streakY = centerY - dashDirectionY * distance;
+            oled.drawLine(streakX, streakY,
+                          streakX - dashDirectionX * 3,
+                          streakY - dashDirectionY * 3);
+        }
+        if (dashing) {
+            // Keep the three original trail marks and flank the middle one.
+            const int middleDistance = PLAYER_W / 2 + 6 + flicker;
+            const int middleX = centerX - dashDirectionX * middleDistance;
+            const int middleY = centerY - dashDirectionY * middleDistance;
+            const int sideOffsetX = -dashDirectionY * 4;
+            const int sideOffsetY = dashDirectionX * 4;
+            for (int side = -1; side <= 1; side += 2) {
+                const int streakX = middleX + side * sideOffsetX;
+                const int streakY = middleY + side * sideOffsetY;
+                oled.drawLine(streakX, streakY,
+                              streakX - dashDirectionX * 3,
+                              streakY - dashDirectionY * 3);
+            }
+        }
+    }
     // A small glint inside the dark cockpit, without filling its silhouette.
     oled.drawPixel(x + 6 + ((now / 320UL) % 2), y + 4);
     oled.setMaxClipWindow();

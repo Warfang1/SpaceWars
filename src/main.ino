@@ -90,8 +90,12 @@ void loop() {
     }
 
     unsigned long now = millis();
+    if (joystickClickEvent) activateDodgeDash(now);
+    const unsigned long playerMoveDelay = timerActive(dashUntil, now)
+                                              ? DASH_STEP_INTERVAL_MS
+                                              : PLAYER_MOVE_DELAY;
     if (!timerActive(playerExplosionUntil, now) &&
-        now - lastPlayerMove >= PLAYER_MOVE_DELAY) {
+        now - lastPlayerMove >= playerMoveDelay) {
         lastPlayerMove = now;
         updatePlayer();
     }
