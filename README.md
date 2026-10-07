@@ -23,7 +23,7 @@ Der er tre typer små fjender. Standard og scout har ét liv; gunner har tre:
 | Type | Udseende og adfærd |
 | --- | --- |
 | Standard | Samme alien-sprite på alle baner, med bevægende antenner/fødder og blinkende øjne; ét målrettet skud ad gangen |
-| Scout | Venstrevendt, missillignende alien med animerede bagfinner og blinkende øjne; 6 pixels pr. opdatering på alle fem baner, skyder ikke og styrer løbende direkte mod spilleren. Eksploderer ved kontakt og giver skade |
+| Scout | Missillignende alien med animerede bagfinner og blinkende øjne; 6 pixels pr. opdatering på alle fem baner, skyder ikke og styrer løbende direkte mod spilleren. Eksploderer ved kontakt og giver skade |
 | Gunner | Tre liv, lille flyvende tallerken med blinkende pilotøjne og roterende kantlys; lav fart og to målrettede skud ad gangen |
 
 Typerne blandes på alle baner. Gunnerens skudinterval er 25 % længere end
